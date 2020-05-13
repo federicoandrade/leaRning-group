@@ -1,0 +1,45 @@
+---
+title: "Chapter 20"
+author: "Federico Andrade-Rivas"
+date: "May 12, 2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(gapminder)
+
+qdiff3 <- function(x, probs = c(0, 1)) {
+  stopifnot(is.numeric(x))
+  the_quantiles <- quantile(x, probs)
+  max(the_quantiles) - min(the_quantiles)
+}
+
+```
+
+#### 20.4 Be proactive about NAs
+Many built-in R functions have an na.rm = argument through which you can specify how you want to handle NAs. Typically the default value is na.rm = FALSE and typical default behavior is to either let NAs propagate or to raise an error.
+
+
+```{r}
+
+z <- gapminder$lifeExp
+z[3] <- NA
+
+quantile(gapminder$lifeExp)
+
+#quantile(z)
+# does not allow to use it. 
+
+quantile(z, na.rm =TRUE)
+
+```
+NOTE> So quantile() simply will not operate in the presence of NAs unless na.rm = TRUE. 
+
+
+
+
